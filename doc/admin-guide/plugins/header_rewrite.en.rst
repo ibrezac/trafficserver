@@ -703,6 +703,7 @@ Variable     Description
 %<cqhl>      Client request length
 %<cqhm>      Client HTTP method
 %<cquup>     Client unmapped URI
+%<cquuh>     Client unmapped URL Host
 ============ ==================================================================
 
 Header Values

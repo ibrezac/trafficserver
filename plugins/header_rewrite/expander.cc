@@ -113,6 +113,18 @@ VariableExpander::expand(const Resources &res)
         }
         TSHandleMLocRelease(bufp, TS_NULL_MLOC, url_loc);
       }
+    } else if (variable == "%<cquuh>") {
+      // The client request unmapped URL Host. This field records a URL Host
+      // before it is remapped (reverse proxy mode).
+      if (TSHttpTxnPristineUrlGet(res.txnp, &bufp, &url_loc) == TS_SUCCESS) {
+        int host_len;
+        const char *host = TSUrlHostGet(bufp, url_loc, &host_len);
+
+        if (host && host_len) {
+          resolved_variable.assign(host, host_len);
+        }
+        TSHandleMLocRelease(bufp, TS_NULL_MLOC, url_loc);
+      }
     }
 
     // TODO(SaveTheRbtz): Can be optimized
